@@ -34,10 +34,29 @@ const GithubProvider = ({ children}) => {
 	// error
 	const [error, setError] = useState({show: false, msg: ""})
 
+	const searchGithubUser = async(user) => {
+		// toggleError();
+		const response = await axios(`${rootUrl}/users/${user}`)
+			.catch((err) => console.log(err));
+
+		if(response) {
+			setGithubUser(response.data);
+		} else {
+			toggleError(true, "There is no user with that username!");
+		}
+	}
+
 	useEffect(checkRequests, []);
 
 	return (
-		<GithubContext.Provider value={{githubUser, repos, followers, requests, error}}>{children}</GithubContext.Provider>
+		<GithubContext.Provider value={{
+										githubUser, 
+										repos, 
+										followers, 
+										requests, 
+										error, 
+										searchGithubUser
+									}}>{children}</GithubContext.Provider>
 	);
 };
 
