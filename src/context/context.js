@@ -23,17 +23,21 @@ const GithubProvider = ({ children}) => {
 				let {rate: {remaining}} = data;
 				setRequests(remaining);
 				if(remaining === 0) {
-					// throw an error
+					toggleError(true, "Sorry! You have exceeded your hourly rate limit!")
 				}
 			})
 			.catch((err) => {console.log(err);})
 	};
+	function toggleError(show = false, msg = '') {
+		setError({show, msg})
+	}
 	// error
+	const [error, setError] = useState({show: false, msg: ""})
 
 	useEffect(checkRequests, []);
 
 	return (
-		<GithubContext.Provider value={{githubUser, repos, followers, requests}}>{children}</GithubContext.Provider>
+		<GithubContext.Provider value={{githubUser, repos, followers, requests, error}}>{children}</GithubContext.Provider>
 	);
 };
 
