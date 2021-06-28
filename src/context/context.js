@@ -4,6 +4,12 @@ import mockRepos from './mockData.js/mockRepos';
 import mockFollowers from './mockData.js/mockFollowers';
 import axios from 'axios';
 
+const dotenv = require('dotenv')
+dotenv.config()
+
+const auth0Domain = process.env.AUTH0_DOMAIN;
+const auth0ClientId = process.env.AUTH0_CLIENT_ID;
+
 const rootUrl = 'https://api.github.com';
 
 const GithubContext = React.createContext();
@@ -76,9 +82,12 @@ const GithubProvider = ({ children}) => {
 										requests, 
 										error, 
 										searchGithubUser,
-										isLoading
+										isLoading,
+										auth0Domain,
+										auth0ClientId
+
 									}}>{children}</GithubContext.Provider>
 	);
 };
 
-export { GithubProvider, GithubContext };
+export { GithubProvider, GithubContext, auth0Domain, auth0ClientId };

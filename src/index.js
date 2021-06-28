@@ -3,17 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { GithubProvider } from './context/context';
+import { GithubProvider, auth0Domain, auth0ClientId } from './context/context';
 import { Auth0Provider } from '@auth0/auth0-react';
+
+
+
 
 ReactDOM.render(
   <React.StrictMode>
       <Auth0Provider
-        // domain={process.env.AUTH0_DOMAIN}
+        // domain={auth0Domain}
         domain="dev-y0pk1cr2.us.auth0.com"
-        // clientId={process.env.AUTH0_CLIENT_ID}
+        // clientId={auth0ClientId}
         clientId="s2yhElFiSrrowCG9HNlbeV2FZOuwkUaN"
         redirectUri={window.location.origin}
+        cacheLocation="localstorage"
       >
       <GithubProvider>
         <App />
